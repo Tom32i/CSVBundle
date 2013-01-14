@@ -10,6 +10,19 @@ class CSVManager
     private $delimiter; 
     private $length; 
 
+    public function __construct() 
+    { 
+        
+    } 
+
+    public function __destruct() 
+    { 
+        if ($this->fp) 
+        { 
+            fclose($this->fp); 
+        } 
+    } 
+
     public function load($file_name, $parse_header = false, $delimiter = "\t", $length = 8000) 
     { 
         $this->fp = fopen($file_name, "r"); 
@@ -23,14 +36,6 @@ class CSVManager
            $this->header = fgetcsv($this->fp, $this->length, $this->delimiter); 
         } 
 
-    } 
-
-    public function __destruct() 
-    { 
-        if ($this->fp) 
-        { 
-            fclose($this->fp); 
-        } 
     } 
 
     public function get($max_lines = 0) 
@@ -49,7 +54,7 @@ class CSVManager
                 { 
                     $row_new[$heading_i] = $row[$i]; 
                 } 
-                
+
                 $data[] = $row_new; 
             } 
             else 
