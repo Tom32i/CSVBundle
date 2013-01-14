@@ -9,9 +9,8 @@ class CSVManager
     private $header; 
     private $delimiter; 
     private $length; 
-    
-    //-------------------------------------------------------------------- 
-    function __construct($file_name, $parse_header=false, $delimiter="\t", $length=8000) 
+
+    public function load($file_name, $parse_header = false, $delimiter = "\t", $length = 8000) 
     { 
         $this->fp = fopen($file_name, "r"); 
         $this->parse_header = $parse_header; 
@@ -25,25 +24,22 @@ class CSVManager
         } 
 
     } 
-    //-------------------------------------------------------------------- 
-    function __destruct() 
+
+    public function __destruct() 
     { 
         if ($this->fp) 
         { 
             fclose($this->fp); 
         } 
     } 
-    //-------------------------------------------------------------------- 
-    function get($max_lines=0) 
+
+    public function get($max_lines = 0) 
     { 
         //if $max_lines is set to 0, then get all the data 
 
         $data = array(); 
 
-        if ($max_lines > 0) 
-            $line_count = 0; 
-        else 
-            $line_count = -1; // so loop limit is ignored 
+        $line_count = $max_lines > 0 ? 0 : -1; // so loop limit is ignored 
 
         while ($line_count < $max_lines && ($row = fgetcsv($this->fp, $this->length, $this->delimiter)) !== FALSE) 
         { 
@@ -53,6 +49,7 @@ class CSVManager
                 { 
                     $row_new[$heading_i] = $row[$i]; 
                 } 
+                
                 $data[] = $row_new; 
             } 
             else 
@@ -61,11 +58,11 @@ class CSVManager
             } 
 
             if ($max_lines > 0) 
+            {
                 $line_count++; 
+            }
         } 
         return $data; 
     } 
-    //-------------------------------------------------------------------- 
-
 } 
 ?>
