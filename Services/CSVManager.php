@@ -12,7 +12,7 @@ class CSVManager
 
     public function __construct() 
     { 
-        
+
     } 
 
     public function __destruct() 
@@ -23,13 +23,12 @@ class CSVManager
         } 
     } 
 
-    public function load($file_name, $parse_header = false, $delimiter = "\t", $length = 8000) 
+    public function load($file_name, $parse_header = true, $delimiter = ";", $length = 0) 
     { 
         $this->fp = fopen($file_name, "r"); 
         $this->parse_header = $parse_header; 
         $this->delimiter = $delimiter; 
         $this->length = $length; 
-        $this->lines = $lines; 
 
         if ($this->parse_header) 
         { 
