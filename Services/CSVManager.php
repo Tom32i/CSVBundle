@@ -37,6 +37,11 @@ class CSVManager
 
     } 
 
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
     public function get($max_lines = 0) 
     { 
         //if $max_lines is set to 0, then get all the data 
