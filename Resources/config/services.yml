@@ -1,0 +1,5 @@
+services:
+
+    tom32i_csv_manager:
+        class:        Tom32i\CSVBundle\Services\CSVManager
+        arguments:    []
